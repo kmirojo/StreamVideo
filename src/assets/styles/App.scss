@@ -1,4 +1,10 @@
-body{
-    background-color: black;
-    color: red;
+body {
+  margin: 0;
+  font-family: 'Muli', sans-serif;
+  background: #000;
+  color: red;
+}
+
+* {
+  box-sizing: border-box;
 }
