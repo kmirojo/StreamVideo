@@ -8,28 +8,36 @@ import Footer from '../components/Footer';
 import '../assets/styles/App.scss';
 
 const App = () => {
-    const [ videos , setVideos ] = useState([]);
+    // Resumen React Hooks https://platzi.com/clases/1651-react-ejs/22668-lectura-react-hooks/
+    const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] });
     useEffect(() => {
         fetch('http://localhost:3000/initialState')
             .then(response => response.json())
             .then(data => setVideos(data));
     },[]);
 
-    console.log(videos);
-    
+    // console.log('videos');
+    // console.log(videos);
+    // console.log('setVideos');
+    // console.log(setVideos);
 
     return(
         <div className="App">
             <Header />
             <Search />
+            {videos.mylist.length > 0 && (
 
-            <Categories title="My Top 10">
+                <Categories title="My List">
+                    <Carousel>
+                        <CarouselItem />
+                    </Carousel>
+                </Categories>
+            )}
+            <Categories title="Trends">
                 <Carousel>
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
+                    {videos.trends.map(item =>
+                        <CarouselItem key={item.id} {...item} />
+                    )}
                 </Carousel>
             </Categories>
             <Footer />
