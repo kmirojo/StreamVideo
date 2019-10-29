@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
 
-// const useInitialState = () => {
-//   console.log("SEBAS LOCAAAA");
-// };
-
-// const API = "http://localhost:3000/initialState";
-
 const useInitialState = API => {
   // Resumen React Hooks https://platzi.com/clases/1651-react-ejs/22668-lectura-react-hooks/
   const [videos, setVideos] = useState({
