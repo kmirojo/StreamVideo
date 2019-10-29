@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 //   console.log("SEBAS LOCAAAA");
 // };
 
-const API = "http://localhost:3000/initialState";
+// const API = "http://localhost:3000/initialState";
 
-const useInitialState = () => {
+const useInitialState = API => {
   // Resumen React Hooks https://platzi.com/clases/1651-react-ejs/22668-lectura-react-hooks/
   const [videos, setVideos] = useState({
     mylist: [],
@@ -14,12 +14,10 @@ const useInitialState = () => {
     originals: []
   });
   useEffect(() => {
-    fetch("http://localhost:3000/initialState")
+    fetch(API)
       .then(response => response.json())
       .then(data => setVideos(data));
   }, []);
-
-  //   console.log(API);
 
   return videos;
 };

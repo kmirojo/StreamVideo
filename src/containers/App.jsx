@@ -5,40 +5,38 @@ import Categories from "../components/Categories";
 import Carousel from "../components/Carousel";
 import CarouselItem from "../components/CarouselItem";
 import Footer from "../components/Footer";
+import useInitialState from "../hooks/useInitialState";
 import "../assets/styles/App.scss";
 
-const App = () => {
-  // Resumen React Hooks https://platzi.com/clases/1651-react-ejs/22668-lectura-react-hooks/
-  const [videos, setVideos] = useState({
-    mylist: [],
-    trends: [],
-    originals: []
-  });
-  useEffect(() => {
-    fetch("http://localhost:3000/initialState")
-      .then(response => response.json())
-      .then(data => setVideos(data));
-  }, []);
+const API = "http://localhost:3000/initialState";
 
-  // console.log('videos');
-  // console.log(videos);
-  // console.log('setVideos');
-  // console.log(setVideos);
+const App = () => {
+  const initialState = useInitialState(API);
 
   return (
     <div className="App">
       <Header />
       <Search />
-      {videos.mylist.length > 0 && (
+      {initialState.mylist.length > 0 && (
         <Categories title="My List">
           <Carousel>
-            <CarouselItem />
+            {initialState.mylist.map(item => (
+              <CarouselItem key={item.id} {...item} />
+            ))}
           </Carousel>
         </Categories>
       )}
       <Categories title="Trends">
         <Carousel>
-          {videos.trends.map(item => (
+          {initialState.trends.map(item => (
+            <CarouselItem key={item.id} {...item} />
+          ))}
+        </Carousel>
+      </Categories>
+
+      <Categories title="Originals">
+        <Carousel>
+          {initialState.originals.map(item => (
             <CarouselItem key={item.id} {...item} />
           ))}
         </Carousel>
